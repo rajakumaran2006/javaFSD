@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Center — CivicLink</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-absolute: #000000;
+            --bg-surface: #0a0a0c;
+            --bg-card: #151518;
+            --border-muted: rgba(255, 255, 255, 0.08);
+            
+            --text-primary: #f4f4f5;
+            --text-secondary: #a1a1aa;
+            --text-muted: #71717a;
+            
+            --accent-indigo: #6366f1;
+            --shadow-premium: 0 8px 30px rgba(0, 0, 0, 0.5);
+            --transition-smooth: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-absolute);
+            color: var(--text-primary);
+            line-height: 1.6;
+            margin: 0;
+            padding: 60px 20px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .help-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--bg-surface);
+            padding: 48px;
+            border-radius: 24px;
+            border: 1px solid var(--border-muted);
+            box-shadow: var(--shadow-premium);
+        }
+
+        header {
+            border-bottom: 1px solid var(--border-muted);
+            padding-bottom: 24px;
+            margin-bottom: 32px;
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            color: #ffffff;
+            font-size: 2.25rem;
+            margin: 0;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 1.05em;
+            margin-top: 8px;
+            font-weight: 300;
+        }
+
+        section {
+            margin-bottom: 32px;
+        }
+
+        h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            color: #ffffff;
+            font-size: 1.4rem;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .faq-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .faq-item {
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-question {
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .faq-answer {
+            color: var(--text-secondary);
+            font-weight: 300;
+            font-size: 0.95em;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.85em;
+            color: var(--text-muted);
+            margin-top: 48px;
+            border-top: 1px solid var(--border-muted);
+            padding-top: 24px;
+        }
+
+        a {
+            color: #ffffff;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            transition: var(--transition-smooth);
+        }
+
+        a:hover {
+            color: var(--accent-indigo);
+        }
+
+        .btn-close {
+            background-color: var(--text-primary);
+            color: var(--bg-absolute);
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 9999px;
+            display: inline-block;
+            margin-top: 20px;
+            font-weight: 600;
+            font-size: 0.9em;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-close:hover {
+            opacity: 0.9;
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="help-container">
+        <!-- Header Section of the Help Page -->
+        <header>
+            <h1>CivicLink Help Desk</h1>
+            <p>Your minimalist guide to local event access, security, and hardware sensor operations.</p>
+        </header>
+
+        <!-- Main FAQ Content -->
+        <main>
+            <section>
+                <h2>Frequently Asked Questions</h2>
+                <ul class="faq-list">
+                    <li class="faq-item">
+                        <div class="faq-question">How do I register for an event?</div>
+                        <div class="faq-answer">
+                            Scroll to the "Secure Event Registration" section, complete the required contact fields, choose your preferred category, and submit. An confirmation output will populate below the form.
+                        </div>
+                    </li>
+                    <li class="faq-item">
+                        <div class="faq-question">What does the local caching system do?</div>
+                        <div class="faq-answer">
+                            The portal utilizes standard browser <code>localStorage</code> to securely save your chosen event category. Upon subsequent page reloads, this preference is read and pre-selected. Click the "Reset Preferences" button to clean browser cache parameters.
+                        </div>
+                    </li>
+                    <li class="faq-item">
+                        <div class="faq-question">Why does the portal request location data?</div>
+                        <div class="faq-answer">
+                            Our distance mapping service accesses browser high-accuracy Geolocation coordinates to calculate the path of the nearest civic office. Your physical position data is processed locally and never transmitted to our databases.
+                        </div>
+                    </li>
+                    <li class="faq-item">
+                        <div class="faq-question">How do I close the lightbox zoom?</div>
+                        <div class="faq-answer">
+                            Double-click any community image to scale it. To close the overlay, either click the close button (&times;) at the top right, or click anywhere inside the blank dark background.
+                        </div>
+                    </li>
+                </ul>
+            </section>
+
+            <section style="text-align: center; margin-top: 40px;">
+                <p style="color: var(--text-secondary); margin-bottom: 20px; font-size: 0.95em;">
+                    For further technical support, contact the civic administrator at <a href="mailto:admin@civiclink.gov">admin@civiclink.gov</a>
+                </p>
+                <!-- Close tab/window link -->
+                <a href="#" onclick="window.close(); return false;" class="btn-close">Close FAQ</a>
+            </section>
+        </main>
+
+        <!-- Footer of the Help Page -->
+        <footer>
+            <p>&copy; 2026 CivicLink Administration. All rights reserved.</p>
+        </footer>
+    </div>
+
+</body>
+</html>

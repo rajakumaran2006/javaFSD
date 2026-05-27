@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Desk — CivicHub</title>
+    
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-absolute: #000000;
+            --bg-surface: #0a0a0c;
+            --border-muted: rgba(255, 255, 255, 0.08);
+            
+            --text-primary: #f4f4f5;
+            --text-secondary: #a1a1aa;
+            --text-muted: #71717a;
+            
+            --accent-indigo: #6366f1;
+            --shadow-premium: 0 8px 30px rgba(0, 0, 0, 0.5);
+            --transition-smooth: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-absolute);
+            color: var(--text-primary);
+            line-height: 1.6;
+            margin: 0;
+            padding: 60px 20px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .help-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--bg-surface);
+            padding: 48px;
+            border-radius: 24px;
+            border: 1px solid var(--border-muted);
+            box-shadow: var(--shadow-premium);
+        }
+
+        header {
+            border-bottom: 1px solid var(--border-muted);
+            padding-bottom: 24px;
+            margin-bottom: 32px;
+            text-align: left;
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            color: #ffffff;
+            font-size: 2.25rem;
+            margin: 0;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 1.05em;
+            margin-top: 8px;
+            font-weight: 300;
+        }
+
+        h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            color: #ffffff;
+            font-size: 1.4rem;
+            margin-top: 0;
+            margin-bottom: 24px;
+            border-left: 3px solid #ffffff;
+            padding-left: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .faq-item {
+            margin-bottom: 28px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-question {
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .faq-answer {
+            color: var(--text-secondary);
+            font-weight: 300;
+            font-size: 0.95em;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 48px;
+            border-top: 1px solid var(--border-muted);
+            padding-top: 24px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        a {
+            color: #ffffff;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            transition: var(--transition-smooth);
+        }
+
+        a:hover {
+            color: var(--accent-indigo);
+        }
+
+        .btn-close {
+            background-color: var(--text-primary);
+            color: var(--bg-absolute);
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 9999px;
+            display: inline-block;
+            margin-top: 20px;
+            font-weight: 600;
+            font-size: 0.9em;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-close:hover {
+            opacity: 0.9;
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="help-container">
+        <header>
+            <h1>CivicHub Layout Lab Help Desk</h1>
+            <p>Guidelines on responsive alignments, bento spacing control, and visual models.</p>
+        </header>
+
+        <main>
+            <section>
+                <h2>Frequently Asked Questions</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question">1. How do I test the responsiveness of the portal?</div>
+                    <div class="faq-answer">
+                        Open the page in Google Chrome, right-click anywhere, and select <strong>Inspect</strong>. In the developer tool pane, click the <strong>Device Toggle Toolbar</strong> icon at the top to simulate fluid screen layouts. Below 768px, the navigation links stack vertically, and event cards dynamically form a single column.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">2. How does the interactive display vs visibility lab function?</div>
+                    <div class="faq-answer">
+                        Our laboratory section provides a live comparison:
+                        <ul>
+                            <li><strong>visibility: hidden</strong> hides the middle card but keeps its structural bounding box active in the page layout.</li>
+                            <li><strong>display: none</strong> completely discards the card from the rendering flow, collapsing the third card to fill its space.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">3. How are the newspaper columns styled?</div>
+                    <div class="faq-answer">
+                        The news bulletin is styled with native CSS3 columns: <code>column-count: 2</code>, <code>column-gap: 40px</code>, and a hairline divider <code>column-rule: 1px solid rgba(255,255,255,0.12)</code>. This simulates a high-end publication editorial look.
+                    </div>
+                </div>
+            </section>
+
+            <section style="margin-top: 40px; text-align: center;">
+                <p style="color: var(--text-secondary); margin-bottom: 20px; font-size: 0.95em;">
+                    Need custom layout assistance? Reach the site admin at <a href="mailto:admin@civichub.gov">admin@civichub.gov</a>
+                </p>
+                <a href="#" onclick="window.close(); return false;" class="btn-close">Close FAQ</a>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 CivicHub Community Services. Formatted and styled with advanced dark mode guidelines.</p>
+        </footer>
+    </div>
+
+</body>
+</html>

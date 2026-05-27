@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CivicLink — Local Community Event Portal</title>
+    
+    <!-- Google Fonts: Inter & Space Grotesk for an ultra-premium tech feel (Apple/Microsoft style) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <!-- Internal CSS to meet styling goals and requirements -->
+    <style>
+        /* Apple-inspired Minimalist Dark Tokens */
+        :root {
+            --bg-absolute: #000000;
+            --bg-surface: #0a0a0c;
+            --bg-card: #151518;
+            --border-muted: rgba(255, 255, 255, 0.08);
+            --border-focus: rgba(255, 255, 255, 0.3);
+            
+            --text-primary: #f4f4f5;
+            --text-secondary: #a1a1aa;
+            --text-muted: #71717a;
+            
+            --accent-indigo: #6366f1;
+            --accent-crimson: #ff453a;
+            --accent-emerald: #34d399;
+            
+            --shadow-premium: 0 8px 30px rgba(0, 0, 0, 0.5);
+            --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.2);
+            --transition-smooth: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-absolute);
+            color: var(--text-primary);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Navigation Bar Styles (Apple-inspired slim glassmorphic bar) */
+        nav {
+            background-color: rgba(10, 10, 12, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 14px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-muted);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            color: var(--text-primary);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25em;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        nav ul li a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9em;
+            font-weight: 500;
+            transition: var(--transition-smooth);
+        }
+
+        nav ul li a:hover {
+            color: var(--text-primary);
+        }
+
+        nav .help-link {
+            background-color: var(--text-primary);
+            color: var(--bg-absolute) !important;
+            padding: 8px 16px;
+            border-radius: 9999px;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+        }
+
+        nav .help-link:hover {
+            opacity: 0.9;
+            transform: scale(0.98);
+        }
+
+        /* Container Limit */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Task 3: Welcome Banner Styling (Sleek dark Apple promo card) */
+        #welcomeBanner {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-muted);
+            padding: 60px 40px;
+            text-align: center;
+            border-radius: 24px;
+            margin: 40px auto;
+            max-width: 1200px;
+            box-shadow: var(--shadow-premium);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        #welcomeBanner h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.75em;
+            margin-bottom: 12px;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            color: #ffffff;
+        }
+
+        #welcomeBanner p {
+            color: var(--text-secondary);
+            font-size: 1.15em;
+            max-width: 700px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        /* Task 3: Special Offer inline styling placeholder & .highlight style */
+        .special-offer-span {
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: 0.05em;
+            padding: 4px 8px;
+            border-radius: 6px;
+            background-color: rgba(255, 69, 58, 0.1);
+        }
+
+        .highlight {
+            background-color: rgba(99, 102, 241, 0.15);
+            color: #a5b4fc;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            display: inline-block;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            font-family: monospace;
+        }
+
+        /* Section Layouts */
+        section {
+            padding: 80px 0;
+            border-bottom: 1px solid var(--border-muted);
+        }
+
+        section h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.25em;
+            margin-bottom: 8px;
+            color: #ffffff;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+
+        .section-desc {
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            font-size: 1.1em;
+            font-weight: 300;
+        }
+
+        /* Task 4: Image Gallery Layout inside a Table (Bento grid visual styled table) */
+        .gallery-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 20px;
+            margin-top: 10px;
+        }
+
+        .gallery-td {
+            background-color: var(--bg-card);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-subtle);
+            vertical-align: top;
+            width: 33.33%;
+            border: 1px solid var(--border-muted);
+            transition: var(--transition-smooth);
+        }
+
+        .gallery-td:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: var(--shadow-premium);
+        }
+
+        /* Style each image with borders using a class */
+        .gallery-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+            border-bottom: 1px solid var(--border-muted);
+            cursor: pointer;
+            transition: filter 0.3s ease;
+        }
+
+        .gallery-img:hover {
+            filter: brightness(1.1);
+        }
+
+        .gallery-caption {
+            padding: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-align: left;
+            font-size: 1.05em;
+        }
+
+        .gallery-caption span {
+            display: block;
+            font-weight: 400;
+            font-size: 0.85em;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+
+        /* Task 5: Event Registration Form & Video Dual Column Setup */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 48px;
+            align-items: start;
+        }
+
+        .form-card {
+            background-color: var(--bg-surface);
+            padding: 48px;
+            border-radius: 24px;
+            box-shadow: var(--shadow-premium);
+            border: 1px solid var(--border-muted);
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85em;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid var(--border-muted);
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 0.95em;
+            background-color: rgba(255, 255, 255, 0.02);
+            color: var(--text-primary);
+            transition: var(--transition-smooth);
+        }
+
+        /* Task 8 & 5: Sleek focus outlines */
+        .form-control:focus {
+            outline: none;
+            border-color: var(--text-primary);
+            background-color: rgba(255, 255, 255, 0.04);
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05);
+        }
+
+        .fee-display {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-muted);
+            color: var(--text-primary);
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            font-size: 0.95em;
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .char-counter {
+            font-size: 0.8em;
+            color: var(--text-muted);
+            text-align: right;
+            margin-top: 6px;
+        }
+
+        .btn-submit {
+            background-color: var(--text-primary);
+            color: var(--bg-absolute);
+            border: none;
+            width: 100%;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .btn-submit:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        .btn-clear {
+            background-color: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-muted);
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 0.85em;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 16px;
+            transition: var(--transition-smooth);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-clear:hover {
+            background-color: rgba(255, 255, 255, 0.04);
+            color: var(--text-primary);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Form output box style */
+        .output-box {
+            margin-top: 30px;
+            padding: 24px;
+            border-radius: 16px;
+            background-color: rgba(52, 211, 153, 0.04);
+            border: 1px solid rgba(52, 211, 153, 0.15);
+            color: #a7f3d0;
+            display: none;
+            font-size: 0.95em;
+            line-height: 1.7;
+            animation: fadeIn 0.4s ease;
+        }
+
+        /* Task 7: Glowing Theater Mode Video Invite */
+        .media-card {
+            background-color: var(--bg-surface);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow-premium);
+            border: 1px solid var(--border-muted);
+            margin-top: 24px;
+            position: relative;
+        }
+
+        .video-container {
+            position: relative;
+            background-color: #000;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            box-shadow: inset 0 0 100px rgba(99, 102, 241, 0.15);
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .video-status-banner {
+            background-color: rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid var(--border-muted);
+            color: var(--text-secondary);
+            padding: 14px 20px;
+            font-size: 0.85em;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .video-status-dot {
+            width: 6px;
+            height: 6px;
+            background-color: var(--accent-emerald);
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 8px var(--accent-emerald);
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Task 9: Geolocation Interface */
+        .geo-card {
+            background-color: var(--bg-surface);
+            padding: 48px;
+            border-radius: 24px;
+            box-shadow: var(--shadow-premium);
+            border: 1px solid var(--border-muted);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .geo-icon {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: var(--accent-indigo);
+            background-color: rgba(99, 102, 241, 0.08);
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 1px solid rgba(99, 102, 241, 0.15);
+        }
+
+        .btn-geo {
+            background-color: var(--text-primary);
+            color: var(--bg-absolute);
+            border: none;
+            padding: 12px 28px;
+            border-radius: 9999px;
+            font-size: 0.95em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-geo:hover {
+            opacity: 0.95;
+            transform: translateY(-1px);
+        }
+
+        .geo-output {
+            margin-top: 24px;
+            padding: 20px;
+            border-radius: 12px;
+            font-family: monospace;
+            background-color: rgba(255, 255, 255, 0.02);
+            width: 100%;
+            border: 1px solid var(--border-muted);
+            font-size: 0.9em;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            display: none;
+            text-align: left;
+        }
+
+        /* Task 6: Double-Click Enlarge Modal (Lightbox) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 85%;
+            transform: scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-img {
+            max-width: 100%;
+            max-height: 75vh;
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .modal-caption {
+            color: var(--text-primary);
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.1em;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 500;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            color: var(--text-secondary);
+            background: none;
+            border: none;
+            font-size: 2.5em;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .modal-close:hover {
+            color: #ffffff;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: var(--bg-surface);
+            color: var(--text-muted);
+            padding: 60px 24px;
+            text-align: center;
+            font-size: 0.9em;
+            border-top: 1px solid var(--border-muted);
+        }
+
+        footer p {
+            margin-bottom: 12px;
+        }
+
+        footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+
+        footer a:hover {
+            color: var(--text-primary);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.4); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 8px rgba(52, 211, 153, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
+        }
+
+        /* Small Screen styling */
+        @media (max-width: 992px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 16px 24px;
+            }
+            nav ul {
+                display: none; /* Hide main links to preserve mobile aesthetics */
+            }
+            #welcomeBanner {
+                padding: 40px 24px;
+            }
+            #welcomeBanner h1 {
+                font-size: 2.2em;
+            }
+            .gallery-table, .gallery-table tbody, .gallery-table tr, .gallery-table td {
+                display: block;
+                width: 100% !important;
+            }
+            .gallery-table td {
+                margin: 0 0 24px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Task 1: Navigation Section marked with appropriate comments -->
+    <!-- ==================== NAVIGATION SECTION ==================== -->
+    <nav>
+        <div class="logo">CivicLink.</div>
+        <ul>
+            <li><a href="#welcome">Home</a></li>
+            <li><a href="#events">Gallery</a></li>
+            <li><a href="#register">Register</a></li>
+            <li><a href="#mapping">Map</a></li>
+            <!-- Task 2: External help document using target="_blank" -->
+            <li><a href="help.html" target="_blank" class="help-link">Help Desk</a></li>
+        </ul>
+    </nav>
+
+    <!-- Task 1 & 3: Main Page Content -->
+    <!-- ==================== MAIN CONTENT SECTION ==================== -->
+    <main class="container" id="welcome">
+
+        <!-- Task 3: Welcome banner with special offer and highlight class -->
+        <div id="welcomeBanner">
+            <h1>Local Community Portal</h1>
+            <p>Your minimalist gateway to local cultural events, city workshops, and recreational activities.</p>
+            <!-- Task 3: Inline style for special offer span (bold and red) -->
+            <p style="margin-top: 24px; font-size: 1em;">
+                <span class="special-offer-span" style="color: #ff453a; font-weight: bold;">SPECIAL OFFER:</span> 
+                Early admittance passes are now available for summer city carnivals. <span class="highlight">Promo Code: CIVIC2026</span>
+            </p>
+        </div>
+
+        <!-- Task 4: Image Gallery for Community Events -->
+        <section id="events">
+            <h2>Community Events Gallery</h2>
+            <p class="section-desc">Double-click on any event card below to inspect the event details inside an immersive gallery view.</p>
+            
+            <!-- Table Layout with 2 rows and 3 columns of image cards -->
+            <table class="gallery-table">
+                <tbody>
+                    <tr>
+                        <td class="gallery-td">
+                            <img class="gallery-img" src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&q=80&w=600" alt="Music Festival" title="Local Live Symphony Concert" ondblclick="zoomImage(this)">
+                            <div class="gallery-caption">
+                                Music Festival
+                                <span>Symphony in the Park &bull; June 15</span>
+                            </div>
+                        </td>
+                        <td class="gallery-td">
+                            <img class="gallery-img" src="https://images.unsplash.com/photo-1531058020387-3be344559767?auto=format&fit=crop&q=80&w=600" alt="Tech Expo" title="Annual City Developer Summit" ondblclick="zoomImage(this)">
+                            <div class="gallery-caption">
+                                Annual Tech Expo
+                                <span>Innovators & Tech Hackathon &bull; June 28</span>
+                            </div>
+                        </td>
+                        <td class="gallery-td">
+                            <img class="gallery-img" src="https://images.unsplash.com/photo-1464245780152-45b5128c7e16?auto=format&fit=crop&q=80&w=600" alt="Flower Market" title="Local Organic Farmers and Flower Market" ondblclick="zoomImage(this)">
+                            <div class="gallery-caption">
+                                Farmers Market
+                                <span>Fresh Organic Produce &bull; Every Sunday</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="gallery-td">
+                            <img class="gallery-img" src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&q=80&w=600" alt="Art Workshop" title="Interactive Watercolor Painting Masterclass" ondblclick="zoomImage(this)">
+                            <div class="gallery-caption">
+                                Art Masterclass
+                                <span>Interactive Outdoor Painting &bull; July 10</span>
+                            </div>
+                        </td>
+                        <td class="gallery-td">
+                            <img class="gallery-img" src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&q=80&w=600" alt="Charity Marathon" title="Annual City Charity Run & Fundraiser" ondblclick="zoomImage(this)">
+                            <div class="gallery-caption">
+                                Charity Marathon
+                                <span>Run for the Green &bull; July 22</span>
+                            </div>
+                        </td>
+                        <td class="gallery-td">
+                            <img class="gallery-img" src="https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&fit=crop&q=80&w=600" alt="Food Truck Festival" title="Annual Community Food & Gastronomy Carnival" ondblclick="zoomImage(this)">
+                            <div class="gallery-caption">
+                                Food Truck Feast
+                                <span>Gourmet Street Food &bull; August 05</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Task 5: Event Registration Form Section -->
+        <section id="register">
+            <h2>Secure Event Registration</h2>
+            <p class="section-desc">Register for upcoming civic events. The portal auto-retains preferences for returning citizens.</p>
+            
+            <div class="form-grid">
+                <!-- Registration Form -->
+                <div class="form-card">
+                    <form id="registrationForm" onsubmit="handleFormSubmit(event)">
+                        
+                        <!-- Name Field (Autofocus, placeholder, required) -->
+                        <div class="form-group">
+                            <label for="regName">Full Name *</label>
+                            <input type="text" id="regName" class="form-control" placeholder="Jane Doe" required autofocus>
+                        </div>
+                        
+                        <!-- Email Field (Email type, placeholder, required) -->
+                        <div class="form-group">
+                            <label for="regEmail">Email Address *</label>
+                            <input type="email" id="regEmail" class="form-control" placeholder="jane.doe@example.com" required>
+                        </div>
+
+                        <!-- Task 6: Phone Number field (onblur phone validate) -->
+                        <div class="form-group">
+                            <label for="regPhone">Mobile Phone (Format: 123-456-7890)</label>
+                            <input type="tel" id="regPhone" class="form-control" placeholder="123-456-7890" onblur="validatePhoneNumber(this)">
+                        </div>
+                        
+                        <!-- Date Field (Date type, required) -->
+                        <div class="form-group">
+                            <label for="regDate">Preferred Attendance Date *</label>
+                            <input type="date" id="regDate" class="form-control" required>
+                        </div>
+
+                        <!-- Select Option Dropdown (onchange to calculate fee, saved in localStorage) -->
+                        <div class="form-group">
+                            <label for="regType">Choose Event Category *</label>
+                            <select id="regType" class="form-control" required onchange="handleEventChange(this)">
+                                <option value="" disabled selected>-- Select an Event Category --</option>
+                                <option value="music">Symphony Concert (Music)</option>
+                                <option value="tech">Annual Tech Expo (Technology)</option>
+                                <option value="market">Farmers Flower Market (Community)</option>
+                                <option value="art">Art Masterclass (Creative)</option>
+                                <option value="marathon">Charity Marathon (Recreational)</option>
+                                <option value="food">Food Truck Feast (Gastronomy)</option>
+                            </select>
+                        </div>
+
+                        <!-- Event Fee Display Area (Dynamic calculation) -->
+                        <div class="fee-display">
+                            <span>Registration Fee:</span>
+                            <span id="calculatedFee">$0.00 (Standard Entry)</span>
+                        </div>
+
+                        <!-- Task 6: Capture key events and count characters -->
+                        <div class="form-group">
+                            <label for="regFeedback">Special Accommodations / Comments</label>
+                            <textarea id="regFeedback" class="form-control" rows="4" placeholder="Any details to share with city administrators..." onkeyup="countCharacters(this)" onkeydown="countCharacters(this)"></textarea>
+                            <div class="char-counter"><span id="charCount">0</span> / 250 characters</div>
+                        </div>
+
+                        <!-- Submit Button with click handler -->
+                        <button type="submit" class="btn-submit" onclick="logSubmitClick()">Complete Registration</button>
+                        
+                        <!-- LocalStorage Clear button -->
+                        <button type="button" class="btn-clear" onclick="clearUserPreferences()">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                            Reset Preferences
+                        </button>
+                    </form>
+
+                    <!-- Task 5: Display confirmation message using <output> -->
+                    <output id="formOutput" class="output-box"></output>
+                </div>
+
+                <!-- Video Invite & Media Events -->
+                <div>
+                    <h3>Interactive Civic Invitation</h3>
+                    <p class="section-desc" style="margin-bottom: 24px;">Play the brief clip below to explore the upcoming community spaces and volunteer initiatives planned for our green zone.</p>
+                    
+                    <div class="media-card">
+                        <!-- Media event display tag -->
+                        <div class="video-status-banner">
+                            <span class="video-status-dot"></span>
+                            <span id="videoStatus">Initialising movie controls...</span>
+                        </div>
+                        
+                        <!-- Task 7: Video Element with source and controls -->
+                        <div class="video-container">
+                            <video id="promoVideo" controls oncanplay="handleVideoCanPlay()">
+                                <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Task 9: Geolocation for Event Mapping -->
+        <section id="mapping">
+            <h2>Location & Coordinates Mapping</h2>
+            <p class="section-desc" style="text-align: center;">Locate the nearest city center by querying your current physical geolocation coordinates.</p>
+            
+            <div class="geo-card">
+                <h3 style="margin-bottom: 8px;">Locate Nearest Civic Center</h3>
+                <p class="section-desc" style="font-size:0.95em; margin-bottom: 24px;">Uses highly accurate browser hardware tracking mechanisms to calculate your orientation distance securely.</p>
+                <button type="button" class="btn-geo" onclick="findNearbyEvents()">Find Nearby Events</button>
+                
+                <div id="geoOutput" class="geo-output"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Task 6: Lightbox Zoom Container -->
+    <div id="lightbox" class="modal-overlay" onclick="closeLightbox()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeLightbox()">&times;</button>
+            <img id="lightboxImg" class="modal-img" src="" alt="Enlarged gallery">
+            <div id="lightboxCaption" class="modal-caption"></div>
+        </div>
+    </div>
+
+    <!-- Task 1: Footer Section marked with appropriate comments -->
+    <!-- ==================== FOOTER SECTION ==================== -->
+    <footer>
+        <p>&copy; 2026 CivicLink Portal. Made under tech aesthetics guidelines.</p>
+        <p>
+            <a href="#welcome">Home</a> | 
+            <a href="#events">Gallery</a> | 
+            <a href="#register">Register</a> | 
+            <a href="help.html" target="_blank">Help Center</a>
+        </p>
+    </footer>
+
+    <!-- Task 10: JavaScript Logic with Debugging Console logs -->
+    <script>
+        console.log("%c[System] Community Portal initialized. Day 1 College exercise script active.", "color: #6366f1; font-weight: bold;");
+
+        // Local Storage Keys
+        const STORAGE_KEY_TYPE = "preferred_event_type";
+        let isFormDirty = false;
+
+        // Watch form fields to trigger warning on navigate away
+        const formFields = document.querySelectorAll('#registrationForm input, #registrationForm select, #registrationForm textarea');
+        formFields.forEach(field => {
+            field.addEventListener('input', () => {
+                isFormDirty = true;
+                console.log("[Debug] Form dirtied by field change: " + field.id);
+            });
+        });
+
+        // Task 7: Warn user if trying to leave with unfinished form
+        window.onbeforeunload = function(e) {
+            if (isFormDirty) {
+                console.log("[System Warning] User attempted to leave page with unsaved form input.");
+                const message = "You have an unfinished registration form. Are you sure you want to leave?";
+                e.returnValue = message; // Standard
+                return message; // Legacy support
+            }
+        };
+
+        // On Page Load: Pre-load preferences from localStorage
+        window.addEventListener('DOMContentLoaded', () => {
+            console.log("[System] Page DOM loaded. Accessing LocalStorage preferences.");
+            loadUserPreferences();
+        });
+
+        // Task 8: Save preference and update fee on change
+        function handleEventChange(selectElement) {
+            const selectedVal = selectElement.value;
+            console.log("[Debug] User selected event category: " + selectedVal);
+            
+            // Save to localStorage
+            localStorage.setItem(STORAGE_KEY_TYPE, selectedVal);
+            console.log("[Debug] Preference saved to LocalStorage: " + selectedVal);
+
+            // Dynamically calculate and display event fee (Task 6)
+            calculateFee(selectedVal);
+        }
+
+        // Calculate fees based on event type
+        function calculateFee(eventType) {
+            const feeDisplay = document.getElementById("calculatedFee");
+            let fee = "$0.00 (Free Admission)";
+
+            switch (eventType) {
+                case "music":
+                    fee = "$25.00 (Standard Ticket)";
+                    break;
+                case "tech":
+                    fee = "$45.00 (Professional Pass)";
+                    break;
+                case "market":
+                    fee = "$0.00 (Free Entry)";
+                    break;
+                case "art":
+                    fee = "$30.00 (Includes Materials)";
+                    break;
+                case "marathon":
+                    fee = "$15.00 (Charity Donation)";
+                    break;
+                case "food":
+                    fee = "$10.00 (Food Voucher Inc.)";
+                    break;
+            }
+
+            feeDisplay.textContent = fee;
+            console.log("[Debug] Displayed event fee updated: " + fee);
+        }
+
+        // Task 8: Retrieve preference from local storage
+        function loadUserPreferences() {
+            const savedType = localStorage.getItem(STORAGE_KEY_TYPE);
+            if (savedType) {
+                console.log("[System] Found saved event preference in LocalStorage: " + savedType);
+                const selectElement = document.getElementById("regType");
+                selectElement.value = savedType;
+                calculateFee(savedType);
+                
+                // Add minor highlight to the loaded selector for UX feedback
+                selectElement.style.borderColor = "rgba(255, 255, 255, 0.4)";
+                setTimeout(() => {
+                    selectElement.style.borderColor = "var(--border-muted)";
+                }, 1500);
+            } else {
+                console.log("[System] No saved event preferences found in LocalStorage.");
+            }
+        }
+
+        // Task 8: Clear local storage and session storage
+        function clearUserPreferences() {
+            console.log("[Action] Clearing user storage preferences.");
+            localStorage.removeItem(STORAGE_KEY_TYPE);
+            sessionStorage.clear(); // Clear sessionStorage as well per requirements
+            
+            // Reset fields
+            document.getElementById("regType").value = "";
+            document.getElementById("calculatedFee").textContent = "$0.00 (Standard Entry)";
+            
+            console.log("[System] Preferences storage cleared successfully.");
+            alert("Preferences and session logs reset successfully.");
+        }
+
+        // Task 6: Validate phone number field onblur
+        function validatePhoneNumber(input) {
+            const phoneVal = input.value.trim();
+            console.log("[Debug] Validation triggered for phone: " + phoneVal);
+            
+            if (phoneVal === "") return; // Allow empty if optional
+
+            // Standard US format regex 123-456-7890
+            const phoneRegex = /^\d{3}-\d{3}-\d{4}$/;
+            if (!phoneRegex.test(phoneVal)) {
+                console.warn("[Validation Failure] Invalid phone number layout: " + phoneVal);
+                input.style.borderColor = "var(--accent-crimson)";
+                input.style.backgroundColor = "rgba(255, 69, 58, 0.05)";
+                alert("Please match the requested phone layout: 123-456-7890");
+            } else {
+                console.log("[Validation Success] Phone number verified.");
+                input.style.borderColor = "var(--accent-emerald)";
+                input.style.backgroundColor = "rgba(52, 211, 153, 0.05)";
+            }
+        }
+
+        // Task 6: Key events character counter inside accommodations textarea
+        function countCharacters(textarea) {
+            const maxChars = 250;
+            const currentLen = textarea.value.length;
+            const countDisplay = document.getElementById("charCount");
+            
+            countDisplay.textContent = currentLen;
+            
+            if (currentLen > maxChars) {
+                textarea.value = textarea.value.substring(0, maxChars);
+                countDisplay.textContent = maxChars;
+                countDisplay.style.color = "var(--accent-crimson)";
+                console.log("[Debug] Textarea content capped at max character count limit.");
+            } else {
+                countDisplay.style.color = "var(--text-muted)";
+            }
+        }
+
+        // Task 6: Submit button click console log
+        function logSubmitClick() {
+            console.log("[Action] Form submit button clicked. Initiating HTML5 semantic constraint validation.");
+        }
+
+        // Task 5: Handle registration form submit
+        function handleFormSubmit(event) {
+            // Prevent default page redirect
+            event.preventDefault();
+            console.log("[System] Form constraints satisfied. Compiling registration summary.");
+
+            const name = document.getElementById("regName").value;
+            const email = document.getElementById("regEmail").value;
+            const date = document.getElementById("regDate").value;
+            const category = document.getElementById("regType").value;
+            const comments = document.getElementById("regFeedback").value;
+            
+            // Output confirmation message inside <output> tag
+            const outputBox = document.getElementById("formOutput");
+            outputBox.style.display = "block";
+            outputBox.innerHTML = `
+                <strong>Registration Confirmed! 🎉</strong><br>
+                Thank you <strong>${name}</strong>, you have successfully registered for the event category <em>"${category.toUpperCase()}"</em>. <br>
+                A confirmation voucher and timing details have been dispatched to <u>${email}</u> for your attendance on <strong>${date}</strong>.<br>
+                ${comments ? `<span style="font-size: 0.9em; display:block; margin-top:8px;"><em>Note on requirements: "${comments}" has been passed to support organizers.</em></span>` : ''}
+            `;
+
+            // Reset form dirty flag so navigation alert is bypassed on subsequent clicks
+            isFormDirty = false;
+            
+            // Scroll to output naturally
+            outputBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            
+            console.log("[System] Output confirmation injected. Registration successful.");
+        }
+
+        // Task 6: Double-Click Zoom Image Lightbox
+        function zoomImage(imgElement) {
+            console.log("[Action] Double-click detected on gallery image: " + imgElement.alt);
+            
+            const lightbox = document.getElementById("lightbox");
+            const lightboxImg = document.getElementById("lightboxImg");
+            const lightboxCaption = document.getElementById("lightboxCaption");
+            
+            lightboxImg.src = imgElement.src;
+            lightboxCaption.textContent = imgElement.title || imgElement.alt;
+            
+            lightbox.classList.add("active");
+        }
+
+        function closeLightbox() {
+            console.log("[Action] Lightbox closed.");
+            document.getElementById("lightbox").classList.remove("active");
+        }
+
+        // Task 7: Video can play event handler
+        function handleVideoCanPlay() {
+            console.log("[Media] Promo video loaded metadata and is ready to stream.");
+            const statusLabel = document.getElementById("videoStatus");
+            statusLabel.textContent = "Promo Video Ready to Play! (HD Streaming)";
+            
+            // Flash status label green
+            statusLabel.style.color = "var(--accent-emerald)";
+            setTimeout(() => {
+                statusLabel.style.color = "var(--text-secondary)";
+            }, 2000);
+        }
+
+        // Task 9: Geolocation Event Mapping with options
+        function findNearbyEvents() {
+            console.log("[Action] Requesting user coordinates via geolocation sensor.");
+            const geoBox = document.getElementById("geoOutput");
+            geoBox.style.display = "block";
+            geoBox.style.color = "var(--text-primary)";
+            geoBox.textContent = "Querying location sensor. Please authorize device GPS access...";
+
+            const options = {
+                enableHighAccuracy: true,  // Use high accuracy options as requested
+                timeout: 5000,             // 5 second timeout
+                maximumAge: 0              // Do not fetch cached locations
+            };
+
+            if (!navigator.geolocation) {
+                console.error("[Geolocation Error] Sensor API not supported by browser environment.");
+                geoBox.style.color = "var(--accent-crimson)";
+                geoBox.textContent = "Error: Geolocation API is not supported by your current browser.";
+                return;
+            }
+
+            navigator.geolocation.getCurrentPosition(
+                // Success Callback
+                (position) => {
+                    const lat = position.coords.latitude.toFixed(6);
+                    const lon = position.coords.longitude.toFixed(6);
+                    const accuracy = position.coords.accuracy.toFixed(1);
+                    
+                    console.log(`[Geolocation Success] Coords acquired. Lat: ${lat}, Lon: ${lon} (Accurate within ${accuracy}m)`);
+                    
+                    geoBox.style.color = "#a7f3d0";
+                    geoBox.style.borderColor = "rgba(52, 211, 153, 0.2)";
+                    geoBox.style.backgroundColor = "rgba(52, 211, 153, 0.04)";
+                    geoBox.innerHTML = `
+                        <strong>Location Located Successfully!</strong><br>
+                        Latitude: ${lat}° N<br>
+                        Longitude: ${lon}° E<br>
+                        Resolution Accuracy: ~${accuracy} meters<br>
+                        <span style="font-size:0.9em; display:block; margin-top:6px; color:#34d399;">
+                            👉 Nearest Center: <strong>Central City Hall & Arts Center (0.8 miles away)</strong>
+                        </span>
+                    `;
+                },
+                // Error Callback
+                (error) => {
+                    console.warn(`[Geolocation Error] Code ${error.code}: ${error.message}`);
+                    geoBox.style.color = "#fca5a5";
+                    geoBox.style.borderColor = "rgba(239, 68, 68, 0.2)";
+                    geoBox.style.backgroundColor = "rgba(239, 68, 68, 0.04)";
+                    
+                    switch (error.code) {
+                        case error.PERMISSION_DENIED:
+                            geoBox.textContent = "Permission Denied: Location request was blocked. Please enable site permissions in your browser bar.";
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            geoBox.textContent = "Sensor Issue: Location information is currently unavailable on your network.";
+                            break;
+                        case error.TIMEOUT:
+                            geoBox.textContent = "Timeout Error: Request timed out. Ensure GPS/Network is active and try again.";
+                            break;
+                        default:
+                            geoBox.textContent = "An unknown tracking error occurred while retrieving coordinates.";
+                    }
+                },
+                options
+            );
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CivicHub — CSS3 Premium Layout Lab</title>
+    
+    <!-- Google Fonts: Space Grotesk & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <!-- ----------------------------------------------------
+         Task 1: Embedded <style> tag in the <head> to define body background
+         (Acts as the internal fallback CSS baseline, overridden by external styles.css)
+         ---------------------------------------------------- -->
+    <style>
+        body {
+            background-color: #000000; /* Embedded default dark baseline color */
+        }
+        
+        /* Internal helper styling for the interactive layout comparison block */
+        .interactive-section {
+            background-color: #0a0a0c;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            margin-top: 30px;
+        }
+
+        .toggle-btn {
+            background-color: #ffffff;
+            color: #000000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 9999px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-right: 12px;
+            margin-bottom: 16px;
+        }
+
+        .toggle-btn:hover {
+            opacity: 0.9;
+        }
+        
+        .toggle-status {
+            font-size: 0.95rem;
+            color: #a1a1aa;
+            font-weight: 400;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+    </style>
+
+    <!-- ----------------------------------------------------
+         Task 1: Link an external stylesheet styles.css 
+         (All reusable layouts and classes are resolved inside styles.css)
+         ---------------------------------------------------- -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Task 6: Custom links, lists, and nav container -->
+    <nav>
+        <div class="brand">CivicHub.</div>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#cards">Events</a></li>
+            <li><a href="#newspaper">Bulletin</a></li>
+            <li><a href="#comparison">Layout Lab</a></li>
+            <li><a href="#admin">Admin Table</a></li>
+            <li><a href="help.html" class="cta-nav" target="_blank">Help Desk</a></li>
+        </ul>
+    </nav>
+
+    <!-- Task 3: ID selector #mainHeader for the banner -->
+    <header id="mainHeader">
+        <!-- Task 1: Apply an inline style to make one heading red (Apple Red accent) -->
+        <h1 style="color: #ff453a;">CivicHub CSS3</h1>
+        <p>A sophisticated demonstration of advanced styling capabilities including multi-column editorial structures, responsive tables, flexbox alignments, and layout visibility models.</p>
+    </header>
+
+    <main class="section-container" id="about">
+        
+        <!-- Task 3: Element selector will style this <h2> -->
+        <!-- Task 4: Gradient text header styled with CSS3 gradients -->
+        <h2 class="gradient-header">Urban Development & Design</h2>
+        <p style="font-size: 1.15rem; line-height: 1.8; margin-top: 10px; font-weight: 300;">
+            This workspace serves as a pristine, custom-coded aesthetic framework. Every element below uses deliberate, structured CSS styles to guarantee responsive balance across device displays.
+        </p>
+
+        <!-- Task 3: Class selector .eventCard for event containers -->
+        <!-- Task 10: Responsive layout using Grid system -->
+        <div class="grid-layout" id="cards">
+            
+            <div class="eventCard">
+                <span class="card-tag">Creative Workshop</span>
+                <h3>Watercolor Masterclass</h3>
+                <p>Learn advanced water painting methodologies from regional artists inside an elegant gallery setting.</p>
+                <a href="#register" style="color:#ffffff; text-decoration:none; font-weight:600; font-size:0.9rem;">Inspect Details &rarr;</a>
+            </div>
+
+            <div class="eventCard">
+                <span class="card-tag">Classical Music</span>
+                <h3>Symphony Concert</h3>
+                <p>Observe the municipal string orchestrations live under the open night sky inside the green park canopy.</p>
+                <a href="#register" style="color:#ffffff; text-decoration:none; font-weight:600; font-size:0.9rem;">Inspect Details &rarr;</a>
+            </div>
+
+            <div class="eventCard">
+                <span class="card-tag">Civic Activity</span>
+                <h3>Charity Marathon 10K</h3>
+                <p>Contribute to sustainable local urban forest projects by joining our annual community green run initiative.</p>
+                <a href="#register" style="color:#ffffff; text-decoration:none; font-weight:600; font-size:0.9rem;">Inspect Details &rarr;</a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Task 9: Newspaper Multiple Columns Layout -->
+    <section class="section-container" id="newspaper">
+        <h2 class="gradient-header">The Civic Gazette</h2>
+        <p style="margin-bottom: 32px;">Read current local development announcements and regional structural planning below.</p>
+        
+        <!-- Newspaper layout rules applied here -->
+        <article class="news-article-section">
+            <h3 class="news-heading">Green Line Transit Corridor Expansion Officially Approved</h3>
+            <p>
+                <span class="drop-cap">T</span>he regional urban development board has signed off on the long-anticipated expansion plans for the high-efficiency green line transport grid. Spanning seven separate civic nodes, this massive infrastructure project will link high-density residential quarters with the industrial innovation corridor, aiming to slash commuter travel thresholds by nearly half and offset carbon emissions significantly.
+            </p>
+            <p>
+                Lead architectural developers emphasize that all station facilities will employ local composite building compounds, high-absorption solar tiles, and dynamic drainage corridors. Pedestrian charging junctions, micro-mobility docking sectors, and integrated botanical dividers will surround all platforms, ensuring the transit corridors reflect high-value environmental policies.
+            </p>
+            <p>
+                Financed through municipal infrastructure credits and private green investment pools, the project has garnered excellent responses from local business federations who anticipate immediate commerce expansion. Excavation is scheduled to start this late autumn, with operational test runs estimated for initial weeks of summer 2028.
+            </p>
+        </article>
+    </section>
+
+    <!-- Task 8: Box Model & Layout Control Interactive Playground -->
+    <section class="section-container" id="comparison">
+        <h2 class="gradient-header">Aesthetics & Display Lab</h2>
+        <p>Investigate the behavioral differences between layout structural rules. Toggle below to witness how elements respond.</p>
+        
+        <div class="interactive-section">
+            <div class="toggle-status">
+                💡 <strong>Layout Sandbox Instruction:</strong> 
+                Note that toggling <code>visibility: hidden</code> retains the element's block layout space (invisible but still occupies margins and dimensions), whereas toggling <code>display: none</code> eliminates the element altogether, collapsing adjacent elements into its space.
+            </div>
+            
+            <button class="toggle-btn" onclick="toggleVisibility()">Toggle Visibility Block</button>
+            <button class="toggle-btn" onclick="toggleDisplay()">Toggle Display Block</button>
+            
+            <div class="comparison-box">
+                <!-- Card 1: Default state -->
+                <div class="compare-card">
+                    <h4>Card Reference</h4>
+                    <p>Static anchor card. Remains visible to define structural borders.</p>
+                    <div class="box-state">Static Card</div>
+                </div>
+
+                <!-- Card 2: Controlled via visibility: hidden -->
+                <div class="compare-card" id="cardVisibility">
+                    <h4>Card Visibility</h4>
+                    <p>Controlled with <code>visibility: hidden</code>. Layout space is preserved.</p>
+                    <div class="box-state" style="background-color: rgba(255, 255, 255, 0.05); color: #ffffff; border: 1px solid rgba(255,255,255,0.1);">Visibility Box</div>
+                </div>
+
+                <!-- Card 3: Controlled via display: none -->
+                <div class="compare-card" id="cardDisplay">
+                    <h4>Card Display</h4>
+                    <p>Controlled with <code>display: none</code>. Card collapses out of bounds.</p>
+                    <div class="box-state" style="background-color: rgba(255, 255, 255, 0.05); color: #ffffff; border: 1px solid rgba(255,255,255,0.1);">Display Box</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Task 7: Premium Table Styling Demonstration -->
+    <section class="section-container" id="admin">
+        <h2 class="gradient-header">Operational Capacity Ledger</h2>
+        <p>Review standard capacities, registration metrics, and attendance caps for community sessions.</p>
+        
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Reference ID</th>
+                        <th>Activity Topic</th>
+                        <th>Scheduled Date</th>
+                        <th>Attendee Cap</th>
+                        <th>Admission Cost</th>
+                        <th>Access Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#JAZZ-2026</td>
+                        <td>Symphony Under Stars</td>
+                        <td>June 15, 2026</td>
+                        <td>250 slots</td>
+                        <td>$25.00</td>
+                        <td><span class="status-pill open">Open</span></td>
+                    </tr>
+                    <tr>
+                        <td>#ART-2026</td>
+                        <td>Watercolor Masterclass</td>
+                        <td>June 28, 2026</td>
+                        <td>120 slots</td>
+                        <td>$0.00 (Free)</td>
+                        <td><span class="status-pill open">Open</span></td>
+                    </tr>
+                    <tr>
+                        <td>#RUN-2026</td>
+                        <td>Summer Charity 10K</td>
+                        <td>July 10, 2026</td>
+                        <td>500 slots</td>
+                        <td>$15.00</td>
+                        <td><span class="status-pill open">Open</span></td>
+                    </tr>
+                    <tr>
+                        <td>#TECH-2026</td>
+                        <td>Civic Innovation Summit</td>
+                        <td>July 22, 2026</td>
+                        <td>150 slots</td>
+                        <td>$45.00</td>
+                        <td><span class="status-pill full">Sold Out</span></td>
+                    </tr>
+                    <tr>
+                        <td>#FOOD-2026</td>
+                        <td>Food Truck Feast</td>
+                        <td>August 05, 2026</td>
+                        <td>400 slots</td>
+                        <td>$10.00</td>
+                        <td><span class="status-pill open">Open</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Task 8: Form Controls & Outline Focus Styling -->
+    <section class="section-container" id="register">
+        <h2 class="gradient-header" style="text-align: center; display: block; margin-bottom: 24px;">Gazette Bulletin Subscription</h2>
+        
+        <div class="form-container">
+            <form onsubmit="event.preventDefault(); alert('Thank you for subscribing to the Civic Gazette!');">
+                <div class="form-group">
+                    <label for="newsletterName">Your Name</label>
+                    <!-- Form input that triggers custom focus outlines (Task 8) -->
+                    <input type="text" id="newsletterName" class="form-control" placeholder="Jane Doe" required>
+                </div>
+                <div class="form-group">
+                    <label for="newsletterEmail">Your Email</label>
+                    <input type="email" id="newsletterEmail" class="form-control" placeholder="jane.doe@example.com" required>
+                </div>
+                <button type="submit" class="btn-submit">Subscribe to Gazette</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer of the Portal -->
+    <footer>
+        <div class="footer-links">
+            <a href="#about">About Us</a>
+            <a href="#cards">Events</a>
+            <a href="#newspaper">Gazette Gazette</a>
+            <a href="help.html" target="_blank">Help Desk</a>
+        </div>
+        <p>&copy; 2026 CivicHub Community Services. Crafted with responsive grids, column layouts, and advanced dark mode frameworks.</p>
+    </footer>
+
+    <!-- Interactive script to showcase layout controls (Task 8) -->
+    <script>
+        function toggleVisibility() {
+            const card = document.getElementById("cardVisibility");
+            if (card.style.visibility === "hidden") {
+                card.style.visibility = "visible";
+                console.log("[Layout Lab] Visibility card toggled to: visible");
+            } else {
+                card.style.visibility = "hidden";
+                console.log("[Layout Lab] Visibility card toggled to: hidden (Preserves block layout space)");
+            }
+        }
+
+        function toggleDisplay() {
+            const card = document.getElementById("cardDisplay");
+            if (card.style.display === "none") {
+                card.style.display = "block";
+                console.log("[Layout Lab] Display card toggled to: block");
+            } else {
+                card.style.display = "none";
+                console.log("[Layout Lab] Display card toggled to: none (Completely discards card space)");
+            }
+        }
+    </script>
+</body>
+</html>
